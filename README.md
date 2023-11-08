@@ -12,7 +12,10 @@ Thare a few intersting files in there
 Two libraries python (it's pyc, but easy to decompile, you still have comment and everythong in file, i don't push code here as it's not open source)
 
 An hex file with the boot loader and the firmware for the HMI (old one, not the Allround)
-And the exe file (py2exe, i need to decompile it yet) that update the firmware on the HMI
+
+The exe file (py2exe, i need to decompile it yet) that update the firmware on the HMI
+
+The exe file that convert the hex file to dfu
 
 Brose seems tu use LIN over CAN to do the update of firmware
 
@@ -30,6 +33,7 @@ https://www.pedelecforum.de/forum/index.php?threads/turbo-levo-can-analyzis-para
 ### Bluetooth
 
 Bluetooth seems to use protobuffer
+
 proto definition (extract from the brose apk) can be found in bluetooth folder
 
 ### CAN / LIN
@@ -37,59 +41,60 @@ from the bloks_usb.py file in the old servicetool
 
 HMI with usb support at least those commands :
 
-enter_testmode = 'enter_testmode'
-activate_lin_bridge = 'lin_bridge'
-help = '?'
-info = 'info'
-reset_bl = 'reset_bl'
-start_application = 'start_application'
-pin_usb_id = 'usb_id'
-pin_over_i = 'usb_overi'
-pin_vbus_en = 'vbus_en'
-pin_can_s = 'can_s'
-pin_dcdc_en = 'dcdc_en'
-pin_lcd_bias_en = 'lcd_bias_en'
-pin_lcd_en = 'lcd_en'
-pin_flash_en = 'flash_en'
-pin_inh = 'lin_inh'
-pin_wake = 'wake'
-pin_slp_n = 'slp_n'
-pin_bak_l_en = 'bak_l_en'
-pin_testpin = 'testpin'
-PinMap = {PIN_usb_id: 1, 
-    PIN_over_i: 2, 
-    PIN_vbus_en: 3, 
-    PIN_can_s: 4, 
-    PIN_inh: 5, 
-    PIN_wake: 6, 
-    PIN_slp_n: 7, 
-    PIN_dcdc_en: 8, 
-    PIN_bak_l_en: 9, 
-    PIN_lcd_en: 10, 
-    PIN_lcd_bias_en: 11, 
-    PIN_flash_en: 12
-    }
-pwm_set = 'pwm_set'
-cmd_send_can = 'can_write'
-cmd_read_can = 'can_read'
-cmd_send_lin = 'lin_write'
-cmd_read_lin = 'lin_read'
-test_pattern = 'lcd_testpattern'
-light_sensor = 'light_sensor'
-lcd_set_map_byte = 'lcd_patternline'
-lcd_setsegment = 'lcd_setsegment'
-read_eeprom_val = 'read_eeprom_val'
-rite_eeprom_val = 'write_eeprom_val'
+- enter_testmode = 'enter_testmode'
+- activate_lin_bridge = 'lin_bridge'
+- help = '?'
+- info = 'info'
+- reset_bl = 'reset_bl'
+- start_application = 'start_application'
+- pin_usb_id = 'usb_id'
+- pin_over_i = 'usb_overi'
+- pin_vbus_en = 'vbus_en'
+- pin_can_s = 'can_s'
+- pin_dcdc_en = 'dcdc_en'
+- pin_lcd_bias_en = 'lcd_bias_en'
+- pin_lcd_en = 'lcd_en'
+- pin_flash_en = 'flash_en'
+- pin_inh = 'lin_inh'
+- pin_wake = 'wake'
+- pin_slp_n = 'slp_n'
+- pin_bak_l_en = 'bak_l_en'
+- pin_testpin = 'testpin'
+- PinMap = 
+    - PIN_usb_id: 1, 
+    - PIN_over_i: 2, 
+    - PIN_vbus_en: 3, 
+    - PIN_can_s: 4, 
+    - PIN_inh: 5, 
+    - PIN_wake: 6, 
+    - PIN_slp_n: 7, 
+    - PIN_dcdc_en: 8, 
+    - PIN_bak_l_en: 9, 
+    - PIN_lcd_en: 10, 
+    - PIN_lcd_bias_en: 11, 
+    - PIN_flash_en: 12
+- pwm_set = 'pwm_set'
+- cmd_send_can = 'can_write'
+- cmd_read_can = 'can_read'
+- cmd_send_lin = 'lin_write'
+- cmd_read_lin = 'lin_read'
+- test_pattern = 'lcd_testpattern'
+- light_sensor = 'light_sensor'
+- lcd_set_map_byte = 'lcd_patternline'
+- lcd_setsegment = 'lcd_setsegment'
+- read_eeprom_val = 'read_eeprom_val'
+- write_eeprom_val = 'write_eeprom_val'
 
-CMD_PARAMETER_DELIMITER = ' '
-PIN_high = CMD_PARAMETER_DELIMITER + 'high'
-PIN_low = CMD_PARAMETER_DELIMITER + 'low'
-LCD_TEST_PATTERN_ALL_ON = 255
-LCD_TEST_PATTERN_ALL_OFF = 0
-LCD_TEST_PATTERN1 = 240
-LCD_TEST_PATTERN2 = 15
+- CMD_PARAMETER_DELIMITER = ' '
+- PIN_high = CMD_PARAMETER_DELIMITER + 'high'
+- PIN_low = CMD_PARAMETER_DELIMITER + 'low'
+- LCD_TEST_PATTERN_ALL_ON = 255
+- LCD_TEST_PATTERN_ALL_OFF = 0
+- LCD_TEST_PATTERN1 = 240
+- LCD_TEST_PATTERN2 = 15
 
 #Enable/disable lin bridge over usb
+
 data = activate_lin_bridge + CMD_PARAMETER_DELIMITER + '1' (or 0 to deactivate)
 
 #send a command over usb lin bridge
