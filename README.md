@@ -94,16 +94,20 @@ HMI with usb support at least those commands :
 - LCD_TEST_PATTERN2 = 15
 
 #Enable/disable lin bridge over usb
-
+```
 data = activate_lin_bridge + CMD_PARAMETER_DELIMITER + '1' (or 0 to deactivate)
-
+```
 #send a command over usb lin bridge
+```
 data = cmd_send_lin + command
-
+```
 #read lin
+```
 data = cmd_read_lin + CMD_PARAMETER_DELIMITER + ($LENGTH)
+```
 
 send and receive on can is the same (but with command cmd_send_can/cmd_read_can)
+
 There is no code that use it, and no code to initlaise the can bridge, so either it's missing, either you don't need to activate it
 
 The servicetool can be decompiled too in c sharp, but there's no data in it, everything is donwloaded at runtime
@@ -114,7 +118,8 @@ Maybe some finding about specialized to calculate a CRC on CAN message (no read 
 - Connect on the can bus, i'm waiting for can board, and have to find the hmi connector pinout
 
 - Decode CAN message
-    For that, i will probbaly try to connect in bluetooth, log data in influxdb
+
+    For that, i will probably try to connect in bluetooth, log data in influxdb
     log can message in influxdb
     use grafana to look for corelation between can message and BT info
 
