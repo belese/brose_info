@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+package BMP;
+option java_package = "com.brose.ebike.bmpprotobuf";
+
+/**************************************************************************************************
+ * BMP Protobuf V1
+ **************************************************************************************************/
+message V1 {
+    oneof msg {
+        Request request = 3;
+        Response response = 4;
+    }
+
+    message Request {
+        /// Unique ID passed with the request to identify the response
+        uint32 id = 1;
+
+        oneof msg {
+            /// Request the frequently changing data
+            Empty read_live_data = 5;
+            /// Request the static bike data
+            Empty read_static_data = 6;
+            /// Request to set the support profile
+            SupportProfile write_support_profile = 7;
+            /// Request to set the thrustfactor of a profile
+            SetThrustfactor write_thrustfactor = 8;
+            /// Request to write the current scaling
+            SetCurrentScaling write_current_scaling = 9;
+            /// Request to write the support profile scale
+            SetSupportProfileScale write_support_profile_scale = 10;
+            /// Request to reset the trip distance
+            Empty reset_trip_distance = 11;
+        }
+    }
+
+    message Response {
+        /// Unique ID passed with the request to identify the response
+        uint32 id = 1;
+
+        oneof msg {
+            /// Response for the request read_live_data
+            LiveData read_live_data = 5;
+            /// Response for the request read_static_data
+            StaticData read_static_data = 6;
+            /// Response of the set of the support profile
+            Empty write_support_profile = 7;
+            /// Response of the set of the thrustfactor of a profile
+            Empty write_thrustfactor = 8;
+            /// Response of the write of the current scaling
+            Empty write_current_scaling = 9;
+            /// Response of the write of the support profile scale
+            Empty write_support_profile_scale = 10;
+            /// Response for the request to reset the trip distance
+            Empty reset_trip_distance = 11;
+        }
+    }
+}
+
+message LiveData {
+    message DriveUnitData {
+        uint32 bike_speed = 1;
+        uint32 treadle_cadence = 2;
+        uint32 support_profile = 3;
+        uint32 treadle_power = 4;
+        uint32 pedal_trq = 5;
+        uint32 odometer = 6;
+        bool light = 7;
+        sint32 motor_temperature = 8;
+        bool pushing_help = 9;
+        uint32 estimated_range = 10;
+    }
+    message BatteryData {
+        uint32 battery_level_relative = 1;
+        uint32 battery_level_absolute = 2;
+        sint32 actual_current = 3;
+        uint32 actual_voltage = 4;
+        bytes state_register = 5;
+        uint32 temperature = 6;
+    }
+    message HMIData {
+        uint32 trip_distance = 1;
+        uint32 current_scaling = 2;
+        uint32 support_profile_scale = 3;
+    }
+    message ErrorData {
+        bytes error_bytes = 1;
+    }
+
+    DriveUnitData drive_unit_data = 1;
+    BatteryData battery_data = 2;
+    HMIData hmi_data = 3;
+    ErrorData error_data = 4;
+}
+
+message StaticData {
+    message DriveUnitData {
+        message Thrustfactor {
+            uint32 profile = 1;
+            uint32 thrustfactor = 2;
+        }
+        string firmware_version = 1;
+        string serial_number = 2;
+        string ebike_id = 3;
+        string board_serial_number = 4;
+        uint32 wheel_circumference = 5;
+        repeated Thrustfactor thrustfactors = 6;
+    }
+    message BatteryData {
+        string firmware_version = 1;
+        string serial_number = 2;
+        uint32 state_of_health = 3;
+        uint32 load_cycles = 4;
+        uint32 full_charge_capacity = 5;
+    }
+    message HMIData {
+        string firmware_version = 1;
+        string serial_number = 2;
+    }
+
+    DriveUnitData drive_unit_data = 1;
+    BatteryData battery_data = 2;
+    HMIData hmi_data = 3;
+}
+
+enum SupportProfile {
+    OFF = 0;
+    ECO = 1;
+    TOUR = 2;
+    SPORT = 3;
+    BOOST = 4;
+}
+
+message SetSupportProfile {
+    SupportProfile profile = 1;
+}
+
+message SetThrustfactor {
+    /// The profile to be changed (1...4)
+    SupportProfile profile = 1;
+    /// The new thrustfactor to be set (0...320)
+    uint32 thrustfactor = 2;
+}
+
+message SetCurrentScaling {
+    /// The new current scaling to be set (10...100)
+    uint32 current_scaling = 1;
+}
+
+message SetSupportProfileScale {
+    /// The new support profile scale to be set (0...100)
+    uint32 support_profile_scale = 1;
+}
+
+message Empty {
+}
