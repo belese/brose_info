@@ -85,7 +85,7 @@ HMI with usb support at least those commands :
 - read_eeprom_val = 'read_eeprom_val'
 - write_eeprom_val = 'write_eeprom_val'
 
-- CMD_PARAMETER_DELIMITER = ' '
+- CMD_PARAMETER_DELIMITER = ' ' (a space)
 - PIN_high = CMD_PARAMETER_DELIMITER + 'high'
 - PIN_low = CMD_PARAMETER_DELIMITER + 'low'
 - LCD_TEST_PATTERN_ALL_ON = 255
