@@ -1,5 +1,8 @@
 # brose_info
 
+
+Bleutooth Python module : https://github.com/belese/brose-bt
+
 I try to group all info about the can/lin/bt for the brose motor
 
 Some ressources i found
